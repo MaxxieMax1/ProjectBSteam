@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='homepage_style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam</title>
+</head>
+<body>
+    <div class="home-container">
+        <div class="background-image">
+            <!-- Replace 'your-image-url' with the actual URL of your background image -->
+            <img src="https://cdn.akamai.steamstatic.com/store/home/store_home_share.jpg" alt="Steam Background">
+        </div>
+        <div class="login-button">
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </div>
+</body>
+</html>
