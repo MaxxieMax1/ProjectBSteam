@@ -2,25 +2,31 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='games_library.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ username }}'s Dashboard</title>
+    <title>Games Library</title>
 </head>
 <body>
     <!-- Top Beam -->
     <div class="top-beam">
         <!-- Centered content in the top beam -->
-        <h1>{{ username }}'s Dashboard</h1>
+        <h1>Games Library</h1>
         <!-- Add other elements as needed -->
     </div>
 
     <!-- Left Beam -->
     <div class="left-beam">
-        <!-- Add content or navigation links for the left beam -->
+        <!-- Logo in Left Beam -->
         <img src="https://store.cloudflare.steamstatic.com/public/shared/images/header/logo_steam.svg?t=962016" alt="Steam Logo">
-        <a href="{{ url_for('games_library') }}">Games Library</a>
-        <a href="#">Friends List</a>
-        <!-- Add other elements as needed -->
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search for a game...">
+            <button type="button">Search</button>
+        </div>
+
+        <!-- Add content or navigation links for the left beam -->
     </div>
 </body>
 </html>

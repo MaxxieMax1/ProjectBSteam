@@ -33,5 +33,10 @@ def login():
 def dashboard(username):
     return render_template('dashboard.html', username=username)
 
+# New route for the Games Library page
+@app.route('/games_library')
+def games_library():
+    return render_template('games_library.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
