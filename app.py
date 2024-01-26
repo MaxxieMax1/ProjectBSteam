@@ -1,16 +1,17 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 from serial.tools import list_ports
 import serial
 from steam import Steam
 from decouple import config
+
+app = Flask(__name__)
+app.secret_key = "your_secret_key"
 
 # SERIAL DINGETJES
 def read_serial(port):
     """Read data from the serial port and return as a string."""
     line = port.read(1000)
     return line.decode()
-
-app = Flask(__name__)
 
 serial_ports = list_ports.comports()
 
@@ -85,6 +86,7 @@ def login():
         password = request.form['password']
 
         if authenticate_user(username, password):
+            session['username'] = username  # Store the username in the session
             return redirect(url_for('dashboard', username=username))
 
     data = "login\r"
@@ -105,17 +107,12 @@ def games_library():
     return render_template('games_library.html')
 @app.route('/friends')
 def friends():
-    # data = "clear\r"
-    # serial_port.write(data.encode())
-    # pico_output = read_serial(serial_port)
-    # return render_template('friends.html')
-    vraagNaam = request.form['steamnaam']
-    playerId = NaamNaarId(vraagNaam)
-    online_users = online(playerId)
-    offline_users = online(playerId)
-    # online_users = online("76561198289617559")
-    # offline_users = offline("76561198289617559")
-    return render_template('friends.html', online_users=online_users, offline_users=offline_users)
+    if 'username' in session:
+        usernamevaningelogdaccount = session['username']
+        playerId = NaamNaarId(usernamevaningelogdaccount)
+        online_users = online(playerId)
+        offline_users = offline(playerId)
+        return render_template('friends.html', online_users=online_users, offline_users=offline_users)
 
 if __name__ == '__main__':
     data = "clear\r"
