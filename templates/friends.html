@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='friends.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <!-- Uncomment the line below if you have a games library CSS file -->
+    {# <link rel="stylesheet" href="{{ url_for('static', filename='games_library.css') }}"> #}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vriendenlijst</title>
+</head>
+<body>
+
+    <!-- Top Beam -->
+    <div class="top-beam">
+        <!-- Centered content in the top beam -->
+        <h1>friends</h1>
+        <!-- Add other elements as needed -->
+    </div>
+
+    <div class="center-table">
+        <table>
+            <tr id="onlineTr">
+                <th>Online Users ({{ online_users|length }})</th>
+            </tr>
+            {% for user in online_users %}
+                <tr>
+                    <td>{{ user }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Centered Offline Users Table -->
+    <div class="center-table">
+        <table>
+            <tr id="offlineTr">
+                <th>Offline Users ({{ offline_users|length }})</th>
+            </tr>
+            {% for user in offline_users %}
+                <tr>
+                    <td>{{ user }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="left-beam">
+        <!-- Add content or navigation links for the left beam -->
+        <img src="https://store.cloudflare.steamstatic.com/public/shared/images/header/logo_steam.svg?t=962016" alt="Steam Logo">
+        <a href="{{ url_for('games_library') }}">Games Library</a>
+        <a href="{{ url_for('friends') }}">Friends List</a>
+        <!-- Add other elements as needed -->
+    </div>
+
+</body>
+</html>

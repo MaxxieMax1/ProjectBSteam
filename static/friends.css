@@ -1,0 +1,73 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #2A475E, #1B2838);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    /*align-items: center;*/
+    text-align: center;
+    color: white; /* Text color set to white */
+}
+.center-table {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align the content horizontally in the center */
+}
+
+h2 {
+    margin-top: 20px;
+    color: white;
+}
+
+table {
+    width: 80%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #333; /* Text color for better readability on a light background */
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.center-table{
+}
+
+#onlineTr {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+#offlineTr { /* Corrected the ID name */
+    background-color: #ff0000;
+    color: #fff;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+#navlijst {
+    float: left;
+    margin-top: 20px; /* Adjusted margin for better spacing */
+}
+
+#navlijst a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+#navlijst a:hover {
+    background-color: #115c9e; /* Matching the hover color from dashboard.css */
+}

@@ -1,8 +1,33 @@
 from flask import Flask, render_template, redirect, url_for, request
+from serial.tools import list_ports
+import serial
+from steam import Steam
+from decouple import config
+
+# SERIAL DINGETJES
+def read_serial(port):
+    """Read data from the serial port and return as a string."""
+    line = port.read(1000)
+    return line.decode()
 
 app = Flask(__name__)
 
-# Mock user data (replace this with your actual user data)
+serial_ports = list_ports.comports()
+
+print("[INFO] Serial ports found:")
+for i, port in enumerate(serial_ports):
+    print(str(i) + ". " + str(port.device))
+
+pico_port_index = int(input("Which port is the Raspberry Pi Pico connected to? "))
+pico_port = serial_ports[pico_port_index].device
+
+serial_port = serial.Serial(port=pico_port, baudrate=115200, bytesize=8, parity='N', stopbits=1, timeout=1)
+if serial_port.isOpen():
+    print("[INFO] Using serial port", serial_port.name)
+else:
+    print("[INFO] Opening serial port", serial_port.name, "...")
+    serial_port.open()
+
 users = [
     {'username': 'MaxxieMax', 'password': 'root'},
     {'username': 'user2', 'password': 'pass2'},
@@ -11,11 +36,46 @@ users = [
 def authenticate_user(username, password):
     for user in users:
         if user['username'] == username and user['password'] == password:
+            data = "ingelogd\r"
+            serial_port.write(data.encode())
+            pico_output = read_serial(serial_port)
+            # pico_output = pico_output.replace('\r\n', ' ')
+            return render_template('index.html')
             return True
     return False
 
+# #################################
+# STEAM API DINGEN
+KEY = config("STEAM_API_KEY")
+steam = Steam(KEY)
+def NaamNaarId(username):
+    test = steam.users.search_user(username)
+    playerId = test['player']['steamid']
+    return playerId
+
+def online(Steamnaam):
+    online_users = []
+    friends_data = steam.users.get_user_friends_list(Steamnaam)
+    for friend in friends_data['friends']:
+        if 'personaname' in friend and friend['personastate'] == 1:
+            online_users.append(friend['personaname'])
+    return online_users
+
+def offline(Steamnaam):
+    offline_users = []
+    friends_data = steam.users.get_user_friends_list(Steamnaam)
+    for friend in friends_data['friends']:
+        if 'personaname' in friend and friend['personastate'] == 0:
+            offline_users.append(friend['personaname'])
+    return offline_users
+# EIND STEAM API DINGEN
+# #################################
+
 @app.route('/')
 def index():
+    data = "start_scherm\r"
+    serial_port.write(data.encode())
+    pico_output = read_serial(serial_port)
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -27,6 +87,9 @@ def login():
         if authenticate_user(username, password):
             return redirect(url_for('dashboard', username=username))
 
+    data = "login\r"
+    serial_port.write(data.encode())
+    pico_output = read_serial(serial_port)
     return render_template('login.html')
 
 @app.route('/dashboard/<username>')
@@ -36,7 +99,26 @@ def dashboard(username):
 # New route for the Games Library page
 @app.route('/games_library')
 def games_library():
+    data = "games_library\r"
+    serial_port.write(data.encode())
+    pico_output = read_serial(serial_port)
     return render_template('games_library.html')
+@app.route('/friends')
+def friends():
+    # data = "clear\r"
+    # serial_port.write(data.encode())
+    # pico_output = read_serial(serial_port)
+    # return render_template('friends.html')
+    vraagNaam = request.form['steamnaam']
+    playerId = NaamNaarId(vraagNaam)
+    online_users = online(playerId)
+    offline_users = online(playerId)
+    # online_users = online("76561198289617559")
+    # offline_users = offline("76561198289617559")
+    return render_template('friends.html', online_users=online_users, offline_users=offline_users)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    data = "clear\r"
+    serial_port.write(data.encode())
+    pico_output = read_serial(serial_port)
+    app.run(debug=True, threaded=True)
