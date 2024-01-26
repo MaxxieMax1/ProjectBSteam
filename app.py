@@ -31,7 +31,8 @@ else:
 
 users = [
     {'username': 'MaxxieMax', 'password': 'root'},
-    {'username': 'user2', 'password': 'pass2'},
+    {'username': 'GarnetOcean', 'password': 'root2'},
+    {'username': 'MisschienMarien', 'password': 'root3'},
 ]
 
 def authenticate_user(username, password):
@@ -109,9 +110,16 @@ def games_library():
 def friends():
     if 'username' in session:
         usernamevaningelogdaccount = session['username']
-        playerId = NaamNaarId(usernamevaningelogdaccount)
-        online_users = online(playerId)
-        offline_users = offline(playerId)
+        if usernamevaningelogdaccount == "GarnetOcean":
+            online_users = online("76561199186683253")
+            offline_users = offline("76561199186683253")
+        elif usernamevaningelogdaccount == "MisschienMarien":
+            online_users = online("76561199058472552")
+            offline_users = offline("76561199058472552")
+        else:
+            playerId = NaamNaarId(usernamevaningelogdaccount)
+            online_users = online(playerId)
+            offline_users = offline(playerId)
         return render_template('friends.html', online_users=online_users, offline_users=offline_users)
 
 if __name__ == '__main__':
