@@ -19,51 +19,19 @@ body {
     padding: 0 20px;
 }
 
-/* Left Beam */
-.left-beam {
-    background-color: #171d25; /* Adjust the color as needed */
-    width: 175px; /* Adjust the width as needed */
-    height: 100%; /* Takes full height of the viewport */
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Align content to the left */
-    padding: 20px;
-}
-
-/* Logo in Left Beam */
-.left-beam img {
-    max-width: 100%; /* Adjust the max-width to downsize the logo */
-    max-height: 100px; /* Adjust the max-height to downsize the logo */
-    margin-bottom: 20px; /* Add margin for spacing */
-}
-
-/* Navigation Links */
-.left-beam a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    margin-bottom: 10px; /* Adjust the margin between navigation links */
-    padding: 10px; /* Add padding for a clickable area */
-    transition: background-color 0.3s ease; /* Smooth transition for background color */
-}
-
-/* Hover Effect for Navigation Links */
-.left-beam a:hover {
-    background-color: #115c9e; /* Add a background color on hover */
-}
-
-/* Active Navigation Link */
-.left-beam a.active {
-    background-color: #115c9e; /* Add a background color for the active link */
-}
-
 /* Dashboard Content */
 .dashboard-content {
     flex: 1;
     padding: 20px;
 }
 
+.navbar{
+    background-color: #2A475E;
+    height: 75px; /* Adjust the height as needed */
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center;
+    padding: 0 20px;
+    font-size: larger;
+}
 /* Add more styles as needed for your dashboard content */

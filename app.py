@@ -135,7 +135,7 @@ def friends():
         data = "friends\r"
         serial_port.write(data.encode())
         pico_output = read_serial(serial_port)
-        return render_template('friends.html', online_users=online_users, offline_users=offline_users)
+        return render_template('friends.html', online_users=online_users, offline_users=offline_users, usernamevaningelogdaccount = usernamevaningelogdaccount)
 
 if __name__ == '__main__':
     data = "clear\r"
