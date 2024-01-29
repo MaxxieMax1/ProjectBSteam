@@ -48,6 +48,7 @@
     <div class="left-beam">
         <!-- Add content or navigation links for the left beam -->
         <img src="https://store.cloudflare.steamstatic.com/public/shared/images/header/logo_steam.svg?t=962016" alt="Steam Logo">
+        <a href="{{ url_for('dashboard', username=session['username']) }}">Home</a>
         <a href="{{ url_for('games_library') }}">Games Library</a>
         <a href="{{ url_for('friends') }}">Friends List</a>
         <!-- Add other elements as needed -->
