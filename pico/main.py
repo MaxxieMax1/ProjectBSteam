@@ -31,6 +31,8 @@ while True:
         schrijven("Kies een game!")
     elif data == 'login':
         schrijven("Login S.V.P")
+    elif data == 'friends':
+        schrijven("Wie is er online of offline?")
     # elif data == '2':
     #     # print("Temperature.")
     #     temperature = krijg_temperatuur()
