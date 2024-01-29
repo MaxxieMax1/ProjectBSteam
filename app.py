@@ -41,7 +41,6 @@ def authenticate_user(username, password):
             data = "ingelogd\r"
             serial_port.write(data.encode())
             pico_output = read_serial(serial_port)
-            # pico_output = pico_output.replace('\r\n', ' ')
             return render_template('index.html')
             return True
     return False
@@ -95,8 +94,21 @@ def login():
     pico_output = read_serial(serial_port)
     return render_template('login.html')
 
+@app.route('/logout')
+def logout():
+    # Controleer of de gebruiker is ingelogd
+    if 'username' in session:
+        # Verwijder de gebruikerssessie
+        session.pop('username', None)
+
+    # Redirect naar de inlogpagina
+    return redirect(url_for('login'))
+
 @app.route('/dashboard/<username>')
 def dashboard(username):
+    data = "ingelogd\r"
+    serial_port.write(data.encode())
+    pico_output = read_serial(serial_port)
     return render_template('dashboard.html', username=username)
 
 # New route for the Games Library page
@@ -120,6 +132,9 @@ def friends():
             playerId = NaamNaarId(usernamevaningelogdaccount)
             online_users = online(playerId)
             offline_users = offline(playerId)
+        data = "friends\r"
+        serial_port.write(data.encode())
+        pico_output = read_serial(serial_port)
         return render_template('friends.html', online_users=online_users, offline_users=offline_users)
 
 if __name__ == '__main__':
