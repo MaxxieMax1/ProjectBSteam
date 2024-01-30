@@ -1,4 +1,6 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, jsonify
+import json
+import os
 
 app = Flask(__name__)
 
@@ -7,6 +9,13 @@ users = [
     {'username': 'MaxxieMax', 'password': 'root'},
     {'username': 'user2', 'password': 'pass2'},
 ]
+
+json_file_path = 'steam.json'
+if os.path.exists(json_file_path):
+    with open(json_file_path, 'r') as file:
+        json_data = json.load(file)
+else:
+    json_data = []
 
 def authenticate_user(username, password):
     for user in users:
@@ -33,10 +42,11 @@ def login():
 def dashboard(username):
     return render_template('dashboard.html', username=username)
 
-# New route for the Games Library page
 @app.route('/games_library')
 def games_library():
-    return render_template('games_library.html')
+    # Extract only the 'name' attributes
+    game_names = [game.get('name', '') for game in json_data]
+    return jsonify(game_names)
 
 if __name__ == '__main__':
     app.run(debug=True)
