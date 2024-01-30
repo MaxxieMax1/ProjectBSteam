@@ -3,6 +3,8 @@ from serial.tools import list_ports
 import serial
 from steam import Steam
 from decouple import config
+import pandas as pd
+import json
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
@@ -111,6 +113,32 @@ def dashboard(username):
     pico_output = read_serial(serial_port)
     return render_template('dashboard.html', username=username)
 
+# GRAFRIEK
+@app.route('/grafiek')
+def grafiek():
+    with open('game_data.json', 'r') as file:
+        data = json.load(file)
+
+    games_df = pd.DataFrame(data)
+
+    games_df['rating_ratio'] = games_df['positive_ratings'] / games_df['negative_ratings']
+    ratio_games = games_df.sort_values(by='rating_ratio', ascending=False).head(10)
+    ratio_namen = ratio_games['name'].tolist()
+    ratio_waarden = ratio_games['rating_ratio'].tolist()
+
+    pos_rating = games_df.sort_values(by='positive_ratings', ascending=False).head(10)
+    positief_namen = pos_rating['name'].tolist()
+    top_posrating = pos_rating['positive_ratings'].tolist()
+
+    return render_template('grafiek.html',
+                           namen_ratio=ratio_namen,
+                           game_ratio=ratio_waarden,
+                           namen_positief=positief_namen,
+                           positieve_beoordelingen=top_posrating
+                           )
+
+
+
 # New route for the Games Library page
 @app.route('/games_library')
 def games_library():
@@ -118,6 +146,7 @@ def games_library():
     serial_port.write(data.encode())
     pico_output = read_serial(serial_port)
     return render_template('games_library.html')
+
 @app.route('/friends')
 def friends():
     if 'username' in session:

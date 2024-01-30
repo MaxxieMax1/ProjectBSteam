@@ -1,0 +1,56 @@
+body {
+    font-family: 'Arial', sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: linear-gradient(to bottom,#2A475E, #1B2838);
+
+}
+
+.top-beam {
+    background-color: #171d25;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.dashboard-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.navbar {
+    background-color: #2A475E;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    font-size: larger;
+}
+
+h1, h2 {
+    margin-top: 20px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #2A475E;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1B2838;
+}
+
+#chart {
+    margin-top: 20px;
+}
