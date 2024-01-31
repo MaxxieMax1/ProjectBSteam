@@ -75,14 +75,26 @@ def offline(Steamnaam):
 def get_recent_games(Steamnaam):
     recent_games_data = steam.users.get_user_recently_played_games(Steamnaam)
     recent_games = [{'name': game['name'],'playtime_2weeks': game['playtime_2weeks']} for game in recent_games_data['games']]
+
     return recent_games
 
 @app.route("/played_games")
 def played_games():
     if 'username' in session:
+        url_for()
+
         usernamevaningelogdaccount = session['username']
-        playerId = NaamNaarId(usernamevaningelogdaccount)
-        recent_games = get_recent_games(playerId)
+        if usernamevaningelogdaccount == "GarnetOcean":
+            recent_games = get_recent_games("76561199186683253")
+        elif usernamevaningelogdaccount == "MisschienMarien":
+            recent_games = get_recent_games("76561199058472552")
+        else:
+            playerId = NaamNaarId(usernamevaningelogdaccount)
+            recent_games = get_recent_games(playerId)
+
+        data = "games\r"
+        serial_port.write(data.encode())
+        pico_output = read_serial(serial_port)
         return render_template('played_games.html', recent_games=recent_games, usernamevaningelogdaccount=usernamevaningelogdaccount)
 
 
@@ -143,6 +155,10 @@ def grafiek():
     positief_namen = pos_rating['name'].tolist()
     top_posrating = pos_rating['positive_ratings'].tolist()
 
+    data = "grafiek\r"
+    serial_port.write(data.encode())
+    pico_output = read_serial(serial_port)
+
     return render_template('grafiek.html',
                            namen_ratio=ratio_namen,
                            game_ratio=ratio_waarden,
@@ -151,12 +167,12 @@ def grafiek():
                            )
 
 # New route for the Games Library page
-@app.route('/games_library')
-def games_library():
-    data = "games_library\r"
-    serial_port.write(data.encode())
-    pico_output = read_serial(serial_port)
-    return render_template('games_library.html')
+# @app.route('/games_library')
+# def games_library():
+#     data = "games_library\r"
+#     serial_port.write(data.encode())
+#     pico_output = read_serial(serial_port)
+#     return render_template('games_library.html')
 
 @app.route('/friends')
 def friends():
