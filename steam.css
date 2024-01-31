@@ -1,0 +1,68 @@
+/* steam.css */
+body {
+    background-color: #171a21;
+    color: #c7d5e0; /* Tekstkleur gewijzigd naar wit */
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h1, form {
+    text-align: center;
+    margin: 20px 0;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #8e94a0;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: rgb(61, 134, 242);
+    color: #c7d5e0;
+    cursor: pointer;
+    border: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+}
+
+li {
+    background-color: #1e232c;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+hr {
+    margin: 12px 0;
+    border: none;
+    border-top: 1px solid #2c313a;
+}
+
+p {
+    text-align: center;
+    font-style: italic;
+    color: #8e94a0;
+}

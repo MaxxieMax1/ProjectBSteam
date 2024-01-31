@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='steam.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Game Search</h1>
+        <form action="/search" method="post">
+            <label for="query">Search for:</label>
+            <input type="text" id="query" name="query" required>
+
+            <label for="category">In category:</label>
+            <select id="category" name="category">
+                <option value="name">Name</option>
+                <option value="developer">Developer</option>
+                <option value="genres">Genre</option>
+            </select>
+
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h1>Search Results</h1>
+
+        {% if results %}
+            <ul>
+                {% for result in results %}
+                    <li>
+                        <strong>Name:</strong> {{ result.name|default("N/A") }}<br>
+                        <strong>Developer:</strong> {{ result.developer|default("N/A") }}<br>
+                        <strong>Price:</strong> {{ result.price|default("N/A") }}<br>
+                        <strong>Genres:</strong> {{ result.genres|default("N/A") }}<br>
+                        <strong>Positive ratings:</strong> {{ result.positive_ratings|default("N/A") }}<br>
+                        <strong>Negative ratings:</strong> {{ result.negative_ratings|default("N/A") }}<br>
+                        <strong>Welke platforms:</strong> {{ result.platforms|default("N/A") }}<br>
+                        <hr>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
