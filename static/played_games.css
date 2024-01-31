@@ -1,5 +1,3 @@
-/* styles.css */
-
 body {
     font-family: 'Arial', sans-serif;
     color: white;
@@ -11,24 +9,23 @@ body {
     background: linear-gradient(to bottom, #2A475E, #1B2838);
 }
 
-/* Top Beam */
 .top-beam {
     background-color: #171d25;
-    height: 75px; /* Adjust the height as needed */
+    height: 75px;
     display: flex;
-    justify-content: center; /* Center the content horizontally */
+    justify-content: center;
     align-items: center;
     padding: 0 20px;
 }
 
-/* Recently Played Games Content */
+
 .recently-played-content {
     flex: 1;
     padding: 20px;
-    text-align: center; /* Center the content horizontally */
+    text-align: center;
 }
 
-/* Add more styles as needed for your recently played games content */
+
 ul {
     list-style: none;
     padding: 0;
@@ -43,11 +40,11 @@ a:hover {
     text-decoration: underline;
 }
 
-.navbar{
+.navbar {
     background-color: #2A475E;
-    height: 75px; /* Adjust the height as needed */
+    height: 75px;
     display: flex;
-    justify-content: center; /* Center the content horizontally */
+    justify-content: center;
     align-items: center;
     padding: 0 20px;
     font-size: larger;

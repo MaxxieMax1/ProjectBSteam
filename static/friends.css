@@ -6,10 +6,11 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 .center-table {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Align the content horizontally in the center */
+    align-items: center;
 }
 
 h2 {
@@ -25,7 +26,7 @@ table {
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color: #333; /* Text color for better readability on a light background */
+    color: #333;
 }
 
 th, td {
@@ -39,7 +40,7 @@ th, td {
     color: #fff;
 }
 
-#offlineTr { /* Corrected the ID name */
+#offlineTr {
     background-color: #ff0000;
     color: #fff;
 }
@@ -48,7 +49,7 @@ tr:hover {
     background-color: #f5f5f5;
 }
 
-.card{
+.card {
     background-color: transparent;
     align-items: center;
 }

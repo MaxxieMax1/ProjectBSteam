@@ -9,11 +9,13 @@ import json
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
 
+
 # SERIAL DINGETJES
 def read_serial(port):
     """Read data from the serial port and return as a string."""
     line = port.read(1000)
     return line.decode()
+
 
 serial_ports = list_ports.comports()
 
@@ -37,6 +39,7 @@ users = [
     {'username': 'MisschienMarien', 'password': 'root3'},
 ]
 
+
 def authenticate_user(username, password):
     for user in users:
         if user['username'] == username and user['password'] == password:
@@ -47,14 +50,18 @@ def authenticate_user(username, password):
             return True
     return False
 
+
 # #################################
 # STEAM API DINGEN
 KEY = config("STEAM_API_KEY")
 steam = Steam(KEY)
+
+
 def NaamNaarId(username):
     test = steam.users.search_user(username)
     playerId = test['player']['steamid']
     return playerId
+
 
 def online(Steamnaam):
     online_users = []
@@ -64,6 +71,7 @@ def online(Steamnaam):
             online_users.append(friend['personaname'])
     return online_users
 
+
 def offline(Steamnaam):
     offline_users = []
     friends_data = steam.users.get_user_friends_list(Steamnaam)
@@ -72,11 +80,14 @@ def offline(Steamnaam):
             offline_users.append(friend['personaname'])
     return offline_users
 
+
 def get_recent_games(Steamnaam):
     recent_games_data = steam.users.get_owned_games(Steamnaam)
-    recent_games = [{'name': game['name'],'playtime_forever': game['playtime_forever']} for game in recent_games_data['games']]
+    recent_games = [{'name': game['name'], 'playtime_forever': game['playtime_forever']} for game in
+                    recent_games_data['games']]
 
     return recent_games
+
 
 @app.route("/played_games")
 def played_games():
@@ -93,7 +104,8 @@ def played_games():
         data = "games\r"
         serial_port.write(data.encode())
         pico_output = read_serial(serial_port)
-        return render_template('played_games.html', recent_games=recent_games, usernamevaningelogdaccount=usernamevaningelogdaccount)
+        return render_template('played_games.html', recent_games=recent_games,
+                               usernamevaningelogdaccount=usernamevaningelogdaccount)
 
 
 # EIND STEAM API DINGEN
@@ -113,7 +125,7 @@ def login():
         password = request.form['password']
 
         if authenticate_user(username, password):
-            session['username'] = username  # Store the username in the session
+            session['username'] = username
             return redirect(url_for('dashboard', username=username))
 
     data = "login\r"
@@ -125,8 +137,6 @@ def login():
 def logout():
     if 'username' in session:
         session.pop('username', None)
-
-    # Redirect naar de inlogpagina
     return redirect(url_for('login'))
 
 @app.route('/dashboard/<username>')
@@ -135,6 +145,7 @@ def dashboard(username):
     serial_port.write(data.encode())
     pico_output = read_serial(serial_port)
     return render_template('dashboard.html', username=username)
+
 
 # GRAFRIEK
 @app.route('/grafiek')
@@ -157,20 +168,9 @@ def grafiek():
     serial_port.write(data.encode())
     pico_output = read_serial(serial_port)
 
-    return render_template('grafiek.html',
-                           namen_ratio=ratio_namen,
-                           game_ratio=ratio_waarden,
-                           namen_positief=positief_namen,
-                           positieve_beoordelingen=top_posrating
-                           )
+    return render_template('grafiek.html', namen_ratio=ratio_namen, game_ratio=ratio_waarden,
+                           namen_positief=positief_namen, positieve_beoordelingen=top_posrating)
 
-# New route for the Games Library page
-# @app.route('/games_library')
-# def games_library():
-#     data = "games_library\r"
-#     serial_port.write(data.encode())
-#     pico_output = read_serial(serial_port)
-#     return render_template('games_library.html')
 
 @app.route('/friends')
 def friends():
@@ -189,7 +189,9 @@ def friends():
         data = "friends\r"
         serial_port.write(data.encode())
         pico_output = read_serial(serial_port)
-        return render_template('friends.html', online_users=online_users, offline_users=offline_users, usernamevaningelogdaccount = usernamevaningelogdaccount)
+        return render_template('friends.html', online_users=online_users, offline_users=offline_users,
+                               usernamevaningelogdaccount=usernamevaningelogdaccount)
+
 
 if __name__ == '__main__':
     data = "clear\r"

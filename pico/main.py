@@ -13,10 +13,12 @@ np = neopixel.NeoPixel(machine.Pin(13), 8)
 adcpin = 4
 sensor = machine.ADC(adcpin)
 
+
 def schrijven(text):
     lcd.clear()
     lcd.putstr(text)
     utime.sleep(1)
+
 
 def online():
     np[0] = [0, 255, 0]
@@ -30,6 +32,7 @@ def online():
 
     np.write()
 
+
 def offline():
     np[0] = [255, 0, 0]
     np[1] = [255, 0, 0]
@@ -42,6 +45,7 @@ def offline():
 
     np.write()
 
+
 # Wacht op gegevens van de verbinding
 while True:
     data = input()
@@ -50,7 +54,7 @@ while True:
     if data == "clear":
         lcd.clear()
     if data == 'start_scherm':
-        schrijven("Welkom bij ons  steam project")
+        schrijven("Welkom bij ons  Steam project!")
         offline()
     elif data == 'ingelogd':
         schrijven("Welkom bij je   dashboard")
@@ -63,6 +67,6 @@ while True:
     elif data == 'friends':
         schrijven("Wie is er online of offline?")
     elif data == 'grafiek':
-        schrijven("Wat zijn de     statistieken")
+        schrijven("Wat zijn de     statistieken?")
     elif data == 'games':
         schrijven("Hier zie je al  je games!")
