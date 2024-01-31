@@ -62,8 +62,7 @@ while True:
         offline()
     elif data == 'friends':
         schrijven("Wie is er online of offline?")
-    # elif data == '2':
-    #     # print("Temperature.")
-    #     temperature = krijg_temperatuur()
-    #     print(f"De temperatuur is {temperature} C")
-    #     time.sleep(5)
+    elif data == 'grafiek':
+        schrijven("Wat zijn de     statistieken")
+    elif data == 'games':
+        schrijven("Hier zie je al  je games!")
