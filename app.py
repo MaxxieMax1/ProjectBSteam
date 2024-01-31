@@ -71,6 +71,21 @@ def offline(Steamnaam):
         if 'personaname' in friend and friend['personastate'] == 0:
             offline_users.append(friend['personaname'])
     return offline_users
+
+def get_recent_games(Steamnaam):
+    recent_games_data = steam.users.get_user_recently_played_games(Steamnaam)
+    recent_games = [{'name': game['name'],'playtime_2weeks': game['playtime_2weeks']} for game in recent_games_data['games']]
+    return recent_games
+
+@app.route("/played_games")
+def played_games():
+    if 'username' in session:
+        usernamevaningelogdaccount = session['username']
+        playerId = NaamNaarId(usernamevaningelogdaccount)
+        recent_games = get_recent_games(playerId)
+        return render_template('played_games.html', recent_games=recent_games, usernamevaningelogdaccount=usernamevaningelogdaccount)
+
+
 # EIND STEAM API DINGEN
 # #################################
 
@@ -98,9 +113,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-    # Controleer of de gebruiker is ingelogd
     if 'username' in session:
-        # Verwijder de gebruikerssessie
         session.pop('username', None)
 
     # Redirect naar de inlogpagina
@@ -136,8 +149,6 @@ def grafiek():
                            namen_positief=positief_namen,
                            positieve_beoordelingen=top_posrating
                            )
-
-
 
 # New route for the Games Library page
 @app.route('/games_library')
