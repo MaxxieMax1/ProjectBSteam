@@ -73,16 +73,14 @@ def offline(Steamnaam):
     return offline_users
 
 def get_recent_games(Steamnaam):
-    recent_games_data = steam.users.get_user_recently_played_games(Steamnaam)
-    recent_games = [{'name': game['name'],'playtime_2weeks': game['playtime_2weeks']} for game in recent_games_data['games']]
+    recent_games_data = steam.users.get_owned_games(Steamnaam)
+    recent_games = [{'name': game['name'],'playtime_forever': game['playtime_forever']} for game in recent_games_data['games']]
 
     return recent_games
 
 @app.route("/played_games")
 def played_games():
     if 'username' in session:
-        url_for()
-
         usernamevaningelogdaccount = session['username']
         if usernamevaningelogdaccount == "GarnetOcean":
             recent_games = get_recent_games("76561199186683253")
