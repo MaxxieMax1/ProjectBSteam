@@ -1,0 +1,39 @@
+# Project B Steam
+
+## Doel van het project
+Steam wil haar klanten beter bedienen door meer grafische weergaves te maken van gaming gedrag naar verschillende klantsegmenten. Hierdoor heeft ze ons als een consultancybedrijf ingehuurd.
+
+De hoofdopdracht luidt: "Maak een grafische weergave die inzicht geeft in het gaming gedrag van jouw vrienden op het platform Steam, ondersteund door één of meer hardware componenten."
+
+De Steam Dashboard is een eenvoudige applicatie die informatie weergeeft over videogames die zijn opgeslagen in een JSON-bestand. Het bevat een op Tkinter gebaseerde GUI (Graphical User Interface) die gebruikers een gebruiksvriendelijke interface biedt voor interactie met de gegevens.
+
+## Groepsleden
+- **Max Breunesse** (Student ID: 1862602, Username: max_breunesse)
+- **Oluwaseyi Davies** (Student ID: 1868619, Username: oluwaseyi_davies)
+- **Brendon Meijer** (Student ID: 1854473, Username: brendon_meijer)
+- **Joost Schimtz** (Student ID: 1861902, Username: joost_schmitz)
+- **Marien Vader** (Student ID: 1861063 , Username: marien_vader)
+
+## Hoe u de code uitvoert:
+
+## Vereisten
+- Python geinstalleerd op u device.
+- Een werkend Raspberry Pi Pico goed vebronden hebt aan u device.
+
+## Stappen
+1. **Navigeer naar de Project Directory:**
+    Neem de Repository over:
+     https://github.com/MaxxieMax1/ProjectBSteam
+2. **Voer de code uitvoer:**
+    python app.py
+3. **Interactie met de Flask**
+    - De Flask bestand toont eerst een Homepage waarbij u naar de login scherm wordt verwijst met een Login knop.
+    - Zodra u bij de login scherm komt kunt u inloggen. Eenmaal ingelogd wordt u doorverwezen naar het dashboard.
+    - Met het Dashboard krijgt u een slideshow te zien van populaire games en verschillende navigatie knoppen die u verwijst naar u game lijst, friends list, grafieken over de games en een uitlog knop.
+    - Bij de game lijst, krijgt u te zien welke games u heeft en hoeveel minuten u heeft gespeeld.
+    - Bij de vrienden lijst, kunt u zien welke van u vrienden op Steam online en offline zijn.
+    - Bij de grafieken krijgt u grafieken te zien van bijvoorbeeld het beste beoordeelde game etc.
+    - Met de uitlog knop word u terug verwezen naar de login scherm, zodat de volgende gebruiker kan inloggen.
+
+### Let op!
+Zorg ervoor dat u tijdens de eerste run een actieve internetverbinding heeft, aangezien de applicatie gegevens van een externe bron ophaalt.
